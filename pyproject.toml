@@ -16,7 +16,20 @@ dev = [
     "pytest>=8.4.1,<9",
     "ruff>=0.12.11,<0.13",
     "mypy>=1.17.1,<2",
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "pre-commit>=4.3.0",
 ]
+
+[tool.black]
+line-length = 120
+target-version = ["py313"]
+
+[tool.isort]
+profile = "black"
+line_length = 120
+known_first_party = ["siigo-connector"]
+
 
 [tool.hatch.build.targets.sdist]
 include = ["src/siigo_connector"]

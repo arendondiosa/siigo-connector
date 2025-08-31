@@ -1,16 +1,19 @@
 from datetime import datetime
-from typing import Iterator, Dict, Any, Optional, List, Literal
+from typing import Any, Dict, Iterator, List, Literal, Optional
 from uuid import UUID
-from pydantic import BaseModel, TypeAdapter, ConfigDict
+
+from pydantic import BaseModel, ConfigDict, TypeAdapter
 
 
 class IdType(BaseModel):
     code: str
     name: str
 
+
 class FiscalResponsibility(BaseModel):
     code: str
     name: str
+
 
 class City(BaseModel):
     country_code: Optional[str] = None
@@ -20,15 +23,18 @@ class City(BaseModel):
     city_code: Optional[str] = None
     city_name: Optional[str] = None
 
+
 class Address(BaseModel):
     address: str
     city: City
     postal_code: Optional[str] = None
 
+
 class Phone(BaseModel):
     indicative: Optional[str] = None
     number: Optional[str] = None
     extension: Optional[str] = None
+
 
 class Contact(BaseModel):
     first_name: str
@@ -36,8 +42,10 @@ class Contact(BaseModel):
     email: str
     phone: Optional[Phone] = None
 
+
 class Metadata(BaseModel):
     created: datetime
+
 
 class Customer(BaseModel):
     model_config = ConfigDict(extra="ignore")  # ignore unexpected keys safely

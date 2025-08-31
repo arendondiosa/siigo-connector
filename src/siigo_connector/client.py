@@ -1,8 +1,10 @@
 from __future__ import annotations
-from .config import Config
-from .auth import SiigoAuth
+
 from ._http import SyncTransport
+from .auth import SiigoAuth
+from .config import Config
 from .resources.customers import CustomersResource
+
 
 class Client:
     def __init__(

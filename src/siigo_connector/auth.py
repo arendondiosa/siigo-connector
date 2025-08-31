@@ -1,8 +1,13 @@
 from __future__ import annotations
-import httpx, time
+
+import time
 from typing import Optional
+
+import httpx
+
 from .config import Config
 from .errors import APIResponseError
+
 
 class SiigoAuth:
     def __init__(self, cfg: Config):

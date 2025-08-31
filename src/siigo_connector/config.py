@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class Config:
     base_url: str = "https://api.siigo.com"
