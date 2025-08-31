@@ -1,6 +1,6 @@
 [project]
 name = "siigo_connector"
-version = "0.1.5"
+version = "0.1.6"
 description = "Python client for the Siigo API"
 license = { text = "MIT" }
 authors = [{ name = "Alejandro E. Rendon", email = "arendondiosa@gmail.com" }]
