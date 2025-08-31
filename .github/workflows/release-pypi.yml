@@ -1,7 +1,7 @@
 name: release-pypi
 on:
   push:
-    tags: ["v*.*.*"]   # push tags like v0.1.0 to release
+    tags: ["v*.*.*"]
 
 jobs:
   build:
@@ -34,4 +34,4 @@ jobs:
       - name: Publish to PyPI (OIDC)
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: https://pypi.org/legacy/
+          repository-url: https://upload.pypi.org/legacy/
