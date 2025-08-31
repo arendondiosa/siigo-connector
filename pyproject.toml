@@ -1,9 +1,10 @@
 [project]
-name = "siigo-connector"
-version = "0.1.0"
-description = ""
-authors = [{ name = "Alejandro E. Rendon", email = "alejandro@rendon.co" }]
-requires-python = ">=3.13"
+name = "siigo_connector"
+version = "0.1.4rc1"
+description = "Python client for the Siigo API"
+license = { text = "MIT" }
+authors = [{ name = "Alejandro E. Rendon", email = "arendondiosa@gmail.com" }]
+requires-python = ">=3.9"
 readme = "README.md"
 dependencies = [
     "httpx (>=0.28.1,<0.29.0)",
@@ -28,7 +29,7 @@ target-version = ["py313"]
 [tool.isort]
 profile = "black"
 line_length = 120
-known_first_party = ["siigo-connector"]
+known_first_party = ["siigo_connector"]
 
 
 [tool.hatch.build.targets.sdist]
@@ -41,5 +42,5 @@ include = ["src/siigo_connector"]
 "src/siigo_connector" = "siigo_connector"
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.24"]
 build-backend = "hatchling.build"
