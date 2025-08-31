@@ -68,28 +68,22 @@ class Customer(BaseModel):
     comments: Optional[str] = None
     metadata: Optional[Metadata] = None
 
-    # convenience property
-    @property
-    def full_name(self) -> str:
-        return " ".join(self.name).strip()
-
 
 class CustomersResource:
     def __init__(self, *, _request, base_url: str):
         self._request = _request
         self._base = f"{base_url}/v1/customers"
 
-    def list(self, *, page_size: int = 50, page: int = 1) -> Iterator[Customer]:
-        params: Dict[str, Any] = {"page_size": page_size, "page": page}
-        while True:
-            r = self._request("GET", self._base, params=params)
-            data = r.json()
-            # Siigo's payload structure usually includes "results"
-            items = data.get("results") or data.get("data") or []
-            customers = TypeAdapter(list[Customer]).validate_python(items)
-            for c in customers:
-                yield c
-            # naïve paging; adjust to Siigo’s actual paging fields if different
-            if len(customers) < page_size:
-                break
-            params["page"] = params["page"] + 1
+    def list(self, *, created_start: Optional[str] = None) -> Iterator[Customer]:
+        params: Dict[str, Any] = {}
+
+        if created_start:
+            params["created_start"] = created_start
+
+        r = self._request("GET", self._base, params=params)
+        data = r.json()
+        # Siigo's payload structure usually includes "results"
+        items = data.get("results") or data.get("data") or []
+        customers = TypeAdapter(list[Customer]).validate_python(items)
+
+        yield from customers
