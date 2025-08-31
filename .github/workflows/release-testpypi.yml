@@ -15,7 +15,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv lock
       - run: uv sync --all-groups --locked
-      - run: uv run -m pytest -q
+      - run: uv run pytest tests/ -v --cov=src/siigo_connector --cov-report=xml --cov-report=term-missing
       - run: uv build
       - uses: actions/upload-artifact@v4
         with:

@@ -23,7 +23,9 @@ class SiigoAuth:
 
     def _fetch(self) -> None:
         if not (self._cfg.username and self._cfg.access_key and self._cfg.partner_id):
-            raise ValueError("username, access_key and partner_id are required for Siigo auth")
+            raise ValueError(
+                "username, access_key and partner_id are required for Siigo auth"
+            )
 
         url = f"{self._cfg.base_url}/auth"
         headers = {

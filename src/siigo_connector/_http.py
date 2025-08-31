@@ -3,7 +3,12 @@ from __future__ import annotations
 from typing import Any, Mapping
 
 import httpx
-from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
+from tenacity import (
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
 
 from .auth import SiigoAuth
 from .config import Config
@@ -14,7 +19,9 @@ class SyncTransport:
     def __init__(self, cfg: Config, auth: SiigoAuth):
         self.cfg = cfg
         self.auth = auth
-        self.client = httpx.Client(timeout=cfg.timeout, headers={"User-Agent": cfg.user_agent})
+        self.client = httpx.Client(
+            timeout=cfg.timeout, headers={"User-Agent": cfg.user_agent}
+        )
 
     def close(self) -> None:
         self.client.close()
@@ -32,12 +39,20 @@ class SyncTransport:
     )
     def request(self, method: str, url: str, **kwargs: Any) -> httpx.Response:
         try:
-            resp = self.client.request(method, url, headers={**self._headers(), **kwargs.pop("headers", {})}, **kwargs)
+            resp = self.client.request(
+                method,
+                url,
+                headers={**self._headers(), **kwargs.pop("headers", {})},
+                **kwargs,
+            )
             if resp.status_code == 401:
                 # token may be expired or invalid: refresh once and retry
                 self.auth._fetch()
                 resp = self.client.request(
-                    method, url, headers={**self._headers(), **kwargs.pop("headers", {})}, **kwargs
+                    method,
+                    url,
+                    headers={**self._headers(), **kwargs.pop("headers", {})},
+                    **kwargs,
                 )
         except httpx.ConnectTimeout as e:
             raise APITimeoutError(str(e)) from e
