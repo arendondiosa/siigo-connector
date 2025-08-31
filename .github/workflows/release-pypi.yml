@@ -1,0 +1,37 @@
+name: release-pypi
+on:
+  push:
+    tags: ["v*.*.*"]   # push tags like v0.1.0 to release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: { contents: read }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+      - run: uv lock
+      - run: uv sync --all-groups --locked
+      - run: uv run pytest tests/ -v --cov=src/siigo_connector --cov-report=xml --cov-report=term-missing
+      - run: uv build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish-pypi:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # REQUIRED for Trusted Publishing
+      contents: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: dist, path: dist }
+      - name: Publish to PyPI (OIDC)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://pypi.org/legacy/
