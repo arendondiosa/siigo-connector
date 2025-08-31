@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v6
-      - run: uv lock --all-groups
+      - run: uv lock
       - run: uv sync --all-groups --locked
       - run: uv run -m pytest -q
       - run: uv build
