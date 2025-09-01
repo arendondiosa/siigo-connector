@@ -3,7 +3,8 @@ name = "siigo_connector"
 version = "0.2.5"
 description = "Python client for the Siigo API"
 authors = [{ name = "Alejandro E. Rendon", email = "arendondiosa@gmail.com" }]
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE", "LICEN[CS]E.*"]
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -23,6 +24,8 @@ dependencies = [
 homepage = "https://github.com/arendondiosa/siigo-connector-py"
 repository = "https://github.com/arendondiosa/siigo-connector-py"
 #documentation = "https://your-org.github.io/siigo-connector/"
+bug = "https://github.com/arendondiosa/siigo-connector-py/issues"
+download = "https://github.com/arendondiosa/siigo-connector-py/releases"
 changelog = "https://github.com/arendondiosa/siigo-connector-py/releases"
 
 [dependency-groups]
