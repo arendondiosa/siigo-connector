@@ -3,7 +3,7 @@ name = "siigo_connector"
 version = "0.2.6"
 description = "Python client for the Siigo API"
 authors = [{ name = "Alejandro E. Rendon", email = "arendondiosa@gmail.com" }]
-license = "MIT"
+license = "MIT-open-group"
 license-files = ["LICENSE", "LICEN[CS]E.*"]
 classifiers = [
     "License :: OSI Approved :: MIT License",
