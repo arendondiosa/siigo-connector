@@ -4,6 +4,7 @@ from ._http import SyncTransport
 from .auth import SiigoAuth
 from .config import Config
 from .resources.customers import CustomersResource
+from .resources.products import ProductsResource
 
 
 class Client:
@@ -27,9 +28,8 @@ class Client:
         self._http = SyncTransport(cfg, auth)
         self._base_url = cfg.base_url
         # resources
-        self.customers = CustomersResource(
-            _request=self._request, base_url=self._base_url
-        )
+        self.customers = CustomersResource(_request=self._request, base_url=self._base_url)
+        self.products = ProductsResource(_request=self._request, base_url=self._base_url)
 
     def _request(self, method: str, url: str, **kwargs):
         return self._http.request(method, url, **kwargs)

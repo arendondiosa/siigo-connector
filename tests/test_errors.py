@@ -1,8 +1,8 @@
 from siigo_connector.errors import (
-    YourAPIError,
     APIConnectionError,
-    APITimeoutError,
     APIResponseError,
+    APITimeoutError,
+    YourAPIError,
 )
 
 

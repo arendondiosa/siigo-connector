@@ -1,11 +1,12 @@
-import pytest
 from unittest.mock import Mock, patch
+
 import httpx
+import pytest
 
 from siigo_connector._http import SyncTransport
-from siigo_connector.config import Config
 from siigo_connector.auth import SiigoAuth
-from siigo_connector.errors import APIConnectionError, APITimeoutError, APIResponseError
+from siigo_connector.config import Config
+from siigo_connector.errors import APIConnectionError, APIResponseError, APITimeoutError
 
 
 class TestSyncTransport:
@@ -86,9 +87,7 @@ class TestSyncTransport:
 
     @patch.object(SiigoAuth, "token")
     @patch.object(SiigoAuth, "_fetch")
-    def test_sync_transport_request_401_retry(
-        self, mock_fetch, mock_token, mock_config
-    ):
+    def test_sync_transport_request_401_retry(self, mock_fetch, mock_token, mock_config):
         """Test that 401 responses trigger token refresh and retry."""
         mock_token.return_value = "test_token_12345"
 
@@ -103,9 +102,7 @@ class TestSyncTransport:
         mock_response_200.status_code = 200
         mock_response_200.json.return_value = {"data": "test"}
 
-        transport.client.request = Mock(
-            side_effect=[mock_response_401, mock_response_200]
-        )
+        transport.client.request = Mock(side_effect=[mock_response_401, mock_response_200])
 
         response = transport.request("GET", "https://api.test.siigo.com/v1/test")
 
@@ -122,9 +119,7 @@ class TestSyncTransport:
         transport = SyncTransport(mock_config, auth)
 
         # Mock the client to raise ConnectTimeout
-        transport.client.request = Mock(
-            side_effect=httpx.ConnectTimeout("Connection timeout")
-        )
+        transport.client.request = Mock(side_effect=httpx.ConnectTimeout("Connection timeout"))
 
         with pytest.raises(APITimeoutError) as exc_info:
             transport.request("GET", "https://api.test.siigo.com/v1/test")
@@ -182,9 +177,7 @@ class TestSyncTransport:
 
         custom_headers = {"X-Custom-Header": "custom_value"}
 
-        transport.request(
-            "GET", "https://api.test.siigo.com/v1/test", headers=custom_headers
-        )
+        transport.request("GET", "https://api.test.siigo.com/v1/test", headers=custom_headers)
 
         # Check that custom headers were merged with auth headers
         call_args = transport.client.request.call_args

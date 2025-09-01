@@ -1,5 +1,6 @@
 from unittest.mock import Mock
-from siigo_connector.resources.customers import CustomersResource, Customer
+
+from siigo_connector.resources.customers import Customer, CustomersResource
 
 
 class TestCustomersResource:
@@ -33,9 +34,7 @@ class TestCustomersResource:
         assert customers[0].person_type == "Company"
 
         # Verify the request was made correctly
-        mock_request.assert_called_once_with(
-            "GET", f"{base_url}/v1/customers", params={}
-        )
+        mock_request.assert_called_once_with("GET", f"{base_url}/v1/customers", params={})
 
     def test_customers_list_with_created_start(self, mock_customers_response):
         """Test customers list with created_start parameter."""
@@ -55,9 +54,7 @@ class TestCustomersResource:
 
         # Verify the request was made with the correct parameters
         expected_params = {"created_start": created_start}
-        mock_request.assert_called_once_with(
-            "GET", f"{base_url}/v1/customers", params=expected_params
-        )
+        mock_request.assert_called_once_with("GET", f"{base_url}/v1/customers", params=expected_params)
 
     def test_customers_list_empty_response(self):
         """Test customers list with empty response."""
@@ -155,9 +152,7 @@ class TestCustomersResource:
 
         mock_request = Mock()
         mock_response = Mock()
-        mock_response.json.return_value = {
-            "results": [mock_customer_data1, mock_customer_data2]
-        }
+        mock_response.json.return_value = {"results": [mock_customer_data1, mock_customer_data2]}
         mock_request.return_value = mock_response
 
         base_url = "https://api.test.siigo.com"
@@ -222,6 +217,4 @@ class TestCustomersResource:
         list(resource.list(created_start=created_start))
 
         expected_params = {"created_start": created_start}
-        mock_request.assert_called_once_with(
-            "GET", f"{base_url}/v1/customers", params=expected_params
-        )
+        mock_request.assert_called_once_with("GET", f"{base_url}/v1/customers", params=expected_params)

@@ -1,10 +1,11 @@
-import pytest
 from unittest.mock import Mock, patch
 from uuid import uuid4
 
+import pytest
+
+from siigo_connector.auth import SiigoAuth
 from siigo_connector.client import Client
 from siigo_connector.config import Config
-from siigo_connector.auth import SiigoAuth
 from siigo_connector.resources.customers import (
     Customer,
 )

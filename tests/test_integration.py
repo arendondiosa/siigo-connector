@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import Mock, patch
+
+import pytest
 
 from siigo_connector.client import Client
 from siigo_connector.resources.customers import Customer
@@ -121,9 +122,7 @@ class TestIntegration:
         mock_httpx_client.return_value = mock_client
 
         # Create client
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Close client
         client.close()
@@ -151,9 +150,7 @@ class TestIntegration:
         mock_client.request.return_value = mock_customers_response
 
         # Create client
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Mock the auth token
         client._http.auth._token = "test_token_12345"
@@ -186,9 +183,7 @@ class TestIntegration:
         mock_client.request.return_value = mock_customers_response
 
         # Create client
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Mock the auth token
         client._http.auth._token = "test_token_12345"
@@ -230,9 +225,7 @@ class TestIntegration:
         mock_client.request.return_value = mock_customers_response
 
         # Create client
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Mock the auth token
         client._http.auth._token = "test_token_12345"
@@ -291,9 +284,7 @@ class TestIntegration:
         mock_client.request.side_effect = [mock_response1, mock_response2]
 
         # Create client
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Mock the auth token
         client._http.auth._token = "test_token_12345"

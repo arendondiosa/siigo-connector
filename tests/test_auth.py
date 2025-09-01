@@ -1,6 +1,7 @@
-import pytest
 import time
 from unittest.mock import Mock, patch
+
+import pytest
 
 from siigo_connector.auth import SiigoAuth
 from siigo_connector.config import Config
@@ -29,15 +30,11 @@ class TestSiigoAuth:
         )
         auth = SiigoAuth(config)
 
-        with pytest.raises(
-            ValueError, match="username, access_key and partner_id are required"
-        ):
+        with pytest.raises(ValueError, match="username, access_key and partner_id are required"):
             auth.token()
 
     @patch("httpx.Client")
-    def test_siigo_auth_successful_fetch(
-        self, mock_client_class, mock_config, mock_auth_response
-    ):
+    def test_siigo_auth_successful_fetch(self, mock_client_class, mock_config, mock_auth_response):
         """Test successful token fetch."""
         mock_client = Mock()
         mock_response = Mock()
@@ -118,9 +115,7 @@ class TestSiigoAuth:
         assert "No access_token" in exc_info.value.message
 
     @patch("httpx.Client")
-    def test_siigo_auth_token_caching(
-        self, mock_client_class, mock_config, mock_auth_response
-    ):
+    def test_siigo_auth_token_caching(self, mock_client_class, mock_config, mock_auth_response):
         """Test that tokens are cached and reused."""
         mock_client = Mock()
         mock_response = Mock()

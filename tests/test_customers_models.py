@@ -1,16 +1,17 @@
-import pytest
 from datetime import datetime
 from uuid import uuid4
 
+import pytest
+
 from siigo_connector.resources.customers import (
-    IdType,
-    FiscalResponsibility,
-    City,
     Address,
-    Phone,
+    City,
     Contact,
-    Metadata,
     Customer,
+    FiscalResponsibility,
+    IdType,
+    Metadata,
+    Phone,
 )
 
 
@@ -125,9 +126,7 @@ class TestContact:
     def test_contact_creation_with_phone(self):
         """Test Contact creation with phone."""
         phone = Phone(indicative="57", number="123456789")
-        contact = Contact(
-            first_name="John", last_name="Doe", email="john.doe@test.com", phone=phone
-        )
+        contact = Contact(first_name="John", last_name="Doe", email="john.doe@test.com", phone=phone)
 
         assert contact.first_name == "John"
         assert contact.last_name == "Doe"

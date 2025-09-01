@@ -10,9 +10,7 @@ class TestClient:
     @patch("siigo_connector.client.Config")
     @patch("siigo_connector.client.SiigoAuth")
     @patch("siigo_connector.client.SyncTransport")
-    def test_client_initialization(
-        self, mock_transport_class, mock_auth_class, mock_config_class
-    ):
+    def test_client_initialization(self, mock_transport_class, mock_auth_class, mock_config_class):
         """Test Client initialization with all parameters."""
         # Mock the dependencies
         mock_config = Mock(spec=Config)
@@ -58,9 +56,7 @@ class TestClient:
     @patch("siigo_connector.client.Config")
     @patch("siigo_connector.client.SiigoAuth")
     @patch("siigo_connector.client.SyncTransport")
-    def test_client_initialization_defaults(
-        self, mock_transport_class, mock_auth_class, mock_config_class
-    ):
+    def test_client_initialization_defaults(self, mock_transport_class, mock_auth_class, mock_config_class):
         """Test Client initialization with default values."""
         # Mock the dependencies
         mock_config = Mock(spec=Config)
@@ -75,9 +71,7 @@ class TestClient:
         mock_transport_class.return_value = mock_transport
 
         # Create client with minimal parameters
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Verify Config was created with default values
         mock_config_class.assert_called_once()
@@ -89,9 +83,7 @@ class TestClient:
     @patch("siigo_connector.client.Config")
     @patch("siigo_connector.client.SiigoAuth")
     @patch("siigo_connector.client.SyncTransport")
-    def test_client_request_method(
-        self, mock_transport_class, mock_auth_class, mock_config_class
-    ):
+    def test_client_request_method(self, mock_transport_class, mock_auth_class, mock_config_class):
         """Test Client _request method delegates to transport."""
         # Mock the dependencies
         mock_config = Mock(spec=Config)
@@ -104,24 +96,18 @@ class TestClient:
         mock_transport_class.return_value = mock_transport
 
         # Create client
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Test _request method
         client._request("GET", "https://api.test.com/v1/test", params={"key": "value"})
 
         # Verify transport.request was called with correct parameters
-        mock_transport.request.assert_called_once_with(
-            "GET", "https://api.test.com/v1/test", params={"key": "value"}
-        )
+        mock_transport.request.assert_called_once_with("GET", "https://api.test.com/v1/test", params={"key": "value"})
 
     @patch("siigo_connector.client.Config")
     @patch("siigo_connector.client.SiigoAuth")
     @patch("siigo_connector.client.SyncTransport")
-    def test_client_close_method(
-        self, mock_transport_class, mock_auth_class, mock_config_class
-    ):
+    def test_client_close_method(self, mock_transport_class, mock_auth_class, mock_config_class):
         """Test Client close method delegates to transport."""
         # Mock the dependencies
         mock_config = Mock(spec=Config)
@@ -134,9 +120,7 @@ class TestClient:
         mock_transport_class.return_value = mock_transport
 
         # Create client
-        client = Client(
-            username="test_user", access_key="test_key", partner_id="test_partner"
-        )
+        client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
         # Test close method
         client.close()
@@ -179,9 +163,7 @@ class TestClient:
         )
 
         # Verify customers resource was created with correct parameters
-        mock_customers_class.assert_called_once_with(
-            _request=client._request, base_url="https://api.test.siigo.com"
-        )
+        mock_customers_class.assert_called_once_with(_request=client._request, base_url="https://api.test.siigo.com")
 
         # Verify client has customers attribute
         assert client.customers == mock_customers
@@ -204,9 +186,7 @@ class TestClient:
             mock_transport_class.return_value = mock_transport
 
             # Test that client can be created and closed
-            client = Client(
-                username="test_user", access_key="test_key", partner_id="test_partner"
-            )
+            client = Client(username="test_user", access_key="test_key", partner_id="test_partner")
 
             # Verify close method exists and works
             client.close()
@@ -215,9 +195,7 @@ class TestClient:
     @patch("siigo_connector.client.Config")
     @patch("siigo_connector.client.SiigoAuth")
     @patch("siigo_connector.client.SyncTransport")
-    def test_client_different_base_urls(
-        self, mock_transport_class, mock_auth_class, mock_config_class
-    ):
+    def test_client_different_base_urls(self, mock_transport_class, mock_auth_class, mock_config_class):
         """Test Client with different base URLs."""
         # Test with custom base URL
         mock_config = Mock(spec=Config)
@@ -249,9 +227,7 @@ class TestClient:
     @patch("siigo_connector.client.Config")
     @patch("siigo_connector.client.SiigoAuth")
     @patch("siigo_connector.client.SyncTransport")
-    def test_client_different_timeouts(
-        self, mock_transport_class, mock_auth_class, mock_config_class
-    ):
+    def test_client_different_timeouts(self, mock_transport_class, mock_auth_class, mock_config_class):
         """Test Client with different timeout values."""
         # Test with custom timeout
         mock_config = Mock(spec=Config)

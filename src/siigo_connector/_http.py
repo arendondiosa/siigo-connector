@@ -19,9 +19,7 @@ class SyncTransport:
     def __init__(self, cfg: Config, auth: SiigoAuth):
         self.cfg = cfg
         self.auth = auth
-        self.client = httpx.Client(
-            timeout=cfg.timeout, headers={"User-Agent": cfg.user_agent}
-        )
+        self.client = httpx.Client(timeout=cfg.timeout, headers={"User-Agent": cfg.user_agent})
 
     def close(self) -> None:
         self.client.close()
