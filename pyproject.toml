@@ -6,6 +6,7 @@ license = { text = "MIT" }
 authors = [{ name = "Alejandro E. Rendon", email = "arendondiosa@gmail.com" }]
 requires-python = ">=3.9"
 readme = "README.md"
+urls = { Homepage = "https://github.com/arendondiosa/siigo-connector-py", Repository = "https://github.com/alejandrorendon/siigo-connector" }
 dependencies = [
     "httpx (>=0.28.1,<0.29.0)",
     "pydantic[email]>=2.11.7,<3.0.0",
