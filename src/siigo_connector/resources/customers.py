@@ -4,6 +4,10 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, TypeAdapter
 
+# ID type constants
+ID_TYPE_CC = {"code": "13", "name": "CC"}
+ID_TYPE_NIT = {"code": "31", "name": "NIT"}
+
 
 class IdType(BaseModel):
     code: str
@@ -74,6 +78,19 @@ class CustomersResource:
         self._request = _request
         self._base = f"{base_url}/v1/customers"
 
+    def get_id_type_code(self, id_type: str) -> Optional[str]:
+        """
+        Get the ID type code dictionary based on the provided id_type string.
+        :param id_type: A string representing the type of identification ("CC" or "NIT").
+        :return: A dictionary with 'code' and 'name' keys or None if not found.
+        """
+        if id_type.upper() == "CC":
+            return ID_TYPE_CC["code"]
+        elif id_type.upper() == "NIT":
+            return ID_TYPE_NIT["code"]
+        else:
+            return None
+
     def list(self, *, created_start: Optional[str] = None) -> Iterator[Customer]:
         params: Dict[str, Any] = {}
 
@@ -87,3 +104,13 @@ class CustomersResource:
         customers = TypeAdapter(list[Customer]).validate_python(items)
 
         yield from customers
+
+    def create(self, customer_data: dict) -> Customer:
+        """
+        Create a new customer in Siigo.
+        :param customer_data: Dictionary with customer fields matching Siigo API.
+        :return: Customer instance of the created customer.
+        """
+        r = self._request("POST", self._base, json=customer_data)
+        data = r.json()
+        return Customer.model_validate(data)
