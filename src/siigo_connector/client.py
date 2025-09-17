@@ -5,7 +5,7 @@ from .auth import SiigoAuth
 from .config import Config
 from .resources.customers import CustomersResource
 from .resources.products import ProductsResource
-
+from .resources.webhooks import WebhookResource
 
 class Client:
     def __init__(
@@ -30,6 +30,7 @@ class Client:
         # resources
         self.customers = CustomersResource(_request=self._request, base_url=self._base_url)
         self.products = ProductsResource(_request=self._request, base_url=self._base_url)
+        self.webhooks = WebhookResource(_request=self._request, base_url=self._base_url)
 
     def _request(self, method: str, url: str, **kwargs):
         return self._http.request(method, url, **kwargs)
